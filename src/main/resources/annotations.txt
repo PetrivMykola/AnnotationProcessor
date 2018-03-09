@@ -1,0 +1,2 @@
+Annotations for: SetVarStep
+{"author":"Praveen Kumar Rejeti","name":"Set variable","id":"Id of the step","type":"set-var"}
