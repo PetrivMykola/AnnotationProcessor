@@ -24,44 +24,39 @@ public class Proccesor {
 
         JSONObject json = new JSONObject();
 
-        Path path = Paths.get("/home/developer/IdeaProjects/scanner/src/main/resources/annotations.txt");
+        Path path = Paths.get("src\\main\\resources\\annotations.txt");
 
         System.out.println("Scanning using Reflections:");
 
-        Reflections ref = new Reflections("net.petriv", new FieldAnnotationsScanner(),
-                new TypeAnnotationsScanner(), new SubTypesScanner(false));
+        Reflections ref = new Reflections("net.petriv",
+                            new FieldAnnotationsScanner(),
+                                new TypeAnnotationsScanner(),
+                                    new SubTypesScanner(false));
 
-        for (Class<?> cl : ref.getTypesAnnotatedWith(Step.class)) {
-            Object o = cl.getDeclaredConstructor().newInstance();
+        try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("UTF-8"))) {
 
-            Step step = cl.getAnnotation(Step.class);
-            UI ui = step.ui();
+            for (Class<?> cl : ref.getTypesAnnotatedWith(Step.class)) {
+                Step step = cl.getAnnotation(Step.class);
+                UI ui = step.ui();
 
-            json.put("id", ui.id());
-            json.put("type", step.type());
-            json.put("name", ui.name());
-            json.put("author", ui.author());
+                // Adding attribute to json
+                json.put("id", ui.id());
+                json.put("type", step.type());
+                json.put("name", ui.name());
+                json.put("author", ui.author());
+                json.put("category", ui.category());
+                json.put("company", ui.company());
 
-            //get Fields via reflections and set new value
-            Field value = cl.getDeclaredField("value");
-            value.setAccessible(true);
-            value.set(o, step.type());
-            String str = (String) value.get(o);
-            System.out.println(str);
-
-            try (BufferedWriter writer = Files.newBufferedWriter(path, Charset.forName("UTF-8"))) {
-
+                // Write json in file
                 writer.write("Annotations for: " + cl.getSimpleName());
                 writer.newLine();
                 writer.write(json.toJSONString());
                 writer.newLine();
                 writer.flush();
                 json.clear();
-
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
             }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
-

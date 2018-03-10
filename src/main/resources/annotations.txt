@@ -1,2 +1,4 @@
 Annotations for: SetVarStep
-{"author":"Praveen Kumar Rejeti","name":"Set variable","id":"Id of the step","type":"set-var"}
+{"author":"Petriv Mykola","name":"Set variable","id":"Id of the step","type":"set-var"}
+Annotations for: Example
+{"author":"Petriv Mykola","name":"Set variable","id":"Id of the step","type":"set-var"}

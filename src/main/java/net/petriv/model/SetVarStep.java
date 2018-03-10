@@ -6,7 +6,7 @@ import net.petriv.annotation.UI;
 import net.petriv.annotation.UIComponent;
 
 @net.petriv.annotation.Step(type = "set-var",
-        ui = @UI(name = "Set variable", id = "Id of the step", help = "Step Help", info = "Step info", author = "Praveen Kumar Rejeti",
+        ui = @UI(name = "Set variable", id = "Id of the step", help = "Step Help", info = "Step info", author = "Petriv Mykola",
                 category = "General", displayname = "Set var", company = "Mantra Pvt. Ltd.", thumbnail = "/png", icon = "/.ico"))
 public class SetVarStep extends Step {
 
